@@ -22,7 +22,7 @@ import { BankAccount } from "../services/bank-account.service";
 </section>
 
     `,
-    imports: [CurrencyPipe],
+    imports: [CurrencyPipe, NgIf],
     standalone: true
 })
 export class BankAccountComponent {

@@ -7,8 +7,11 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './shopping-list.component.html',
-  styleUrls: ['./shopping-list.component.css']
+  styleUrls: ['./shopping-list.component.css'],
 })
 export class ShoppingListComponent {
-
+  constructor() {
+    const myName = 'Tyler';
+    console.log(myName);
+  }
 }

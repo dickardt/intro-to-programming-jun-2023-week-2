@@ -1,8 +1,18 @@
-<form>
-    <div class="form-group">
-        <label for="description">Description of Item to Add</label>
-        <input type="text" id="description" class="form-control">
+<form
+  [formGroup]="form"
+  (ngSubmit)="addItem()">
+  <div class="form-group">
+    <label for="description">Description of Item to Add</label>
+    <input
+      type="text"
+      id="description"
+      formControlName="description"
+      class="form-control" />
 
-        <button type="submit" class="btn btn-primary">Add this Item</button>
-    </div>
+    <button
+      type="submit"
+      class="btn btn-primary">
+      Add this Item
+    </button>
+  </div>
 </form>

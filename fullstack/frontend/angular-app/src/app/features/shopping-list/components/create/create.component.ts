@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -15,6 +15,8 @@ import {
   styleUrls: ['./create.component.css'],
 })
 export class CreateComponent {
+  @Output() itemAdded = new EventEmitter<string>();
+
   form = new FormGroup({
     description: new FormControl<string>('', {
       nonNullable: true,
@@ -32,7 +34,7 @@ export class CreateComponent {
 
   addItem() {
     if (this.form.valid) {
-      console.log(this.form.value);
+      this.itemAdded.emit(this.description.value);
     } else {
       console.log(this.description.errors);
     }

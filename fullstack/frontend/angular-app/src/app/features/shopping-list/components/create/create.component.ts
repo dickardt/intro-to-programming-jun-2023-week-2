@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-create',
@@ -13,10 +18,23 @@ export class CreateComponent {
   form = new FormGroup({
     description: new FormControl<string>('', {
       nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(50),
+      ],
     }),
   });
 
+  get description() {
+    return this.form.controls.description;
+  }
+
   addItem() {
-    //todo
+    if (this.form.valid) {
+      console.log(this.form.value);
+    } else {
+      console.log(this.description.errors);
+    }
   }
 }

@@ -1,5 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { selectCounterCurrent } from './state';
+import { CounterAction } from './state/counter.actions';
 
 @Component({
   selector: 'app-counter',
@@ -9,12 +12,15 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./counter.component.css'],
 })
 export class CounterComponent {
-  current = signal(0);
+  current = this.store.selectSignal(selectCounterCurrent);
+
+  constructor(private store: Store) {}
 
   increment() {
-    this.current.set(this.current() + 1);
+    this.store.dispatch(CounterAction.incremented());
   }
+
   decrement() {
-    this.current.set(this.current() - 1);
+    this.store.dispatch(CounterAction.decremented());
   }
 }

@@ -1,0 +1,7 @@
+services:
+  postgres_database:
+    image: postgres:15.2-bullseye
+    environment:
+      - POSTGRES_PASSWORD=1234
+    ports:
+      - 5432:5432

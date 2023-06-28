@@ -2,5 +2,5 @@
 
 public interface ILookUpTheStatus
 {
-    Task<GetStatusResponse> GetCurrentStatusAync();
+    Task<GetStatusResponse> GetCurrentStatusAsync();
 }

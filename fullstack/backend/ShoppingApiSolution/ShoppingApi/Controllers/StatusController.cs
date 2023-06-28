@@ -15,7 +15,8 @@ public class StatusController : ControllerBase
     [HttpGet("/status")]
     public async Task<ActionResult> GetTheStatus()
     {
-        GetStatusResponse response = await _statusLookup.GetCurrentStatusAync();
+        GetStatusResponse response = await _statusLookup.GetCurrentStatusAsync();
         return Ok(response);
     }
 }
+

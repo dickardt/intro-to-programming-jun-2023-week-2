@@ -16,6 +16,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ILookUpTheStatus, StatusLookup>();
 builder.Services.AddScoped<IManageTheShoppingList, PostgresShoppingManager>();
 
+builder.Services.AddCors(builder =>
+{
+    builder.AddDefaultPolicy(pol =>
+    {
+        pol.AllowAnyHeader();
+        pol.AllowAnyHeader();
+        pol.AllowAnyOrigin();
+    });
+});
+
 var shoppingConnectionString = builder.Configuration.GetConnectionString("shopping") ?? throw new Exception("No Connection String for Shopping");
 
 builder.Services.AddDbContext<ShoppingDataContext>(options =>
@@ -32,7 +42,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.UseCors();
 
 app.UseAuthorization();
 

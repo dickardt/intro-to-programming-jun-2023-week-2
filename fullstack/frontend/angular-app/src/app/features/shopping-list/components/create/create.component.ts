@@ -6,6 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { ListEvents } from '../../state/list.actions';
 
 @Component({
   selector: 'app-create',
@@ -15,8 +17,7 @@ import {
   styleUrls: ['./create.component.css'],
 })
 export class CreateComponent {
-  @Output() itemAdded = new EventEmitter<string>();
-
+  constructor(private store: Store) {}
   form = new FormGroup({
     description: new FormControl<string>('', {
       nonNullable: true,
@@ -34,9 +35,14 @@ export class CreateComponent {
 
   addItem() {
     if (this.form.valid) {
-      this.itemAdded.emit(this.description.value);
-    } else {
-      console.log(this.description.errors);
+      const payload = {
+        description: this.form.controls.description.value,
+      };
+      this.store.dispatch(
+        ListEvents.itemAdded({
+          payload: payload,
+        }),
+      );
     }
   }
 }

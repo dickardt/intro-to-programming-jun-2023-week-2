@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ShoppingApi.Controllers;
+using ShoppingApi.Controllers.ShoppingList;
 using ShoppingApi.Data;
 
 
@@ -12,7 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<ILookUpTheStatus, StatusLookup>();
+builder.Services.AddScoped<ILookUpTheStatus, StatusLookup>();
+builder.Services.AddScoped<IManageTheShoppingList, PostgresShoppingManager>();
 
 var shoppingConnectionString = builder.Configuration.GetConnectionString("shopping") ?? throw new Exception("No Connection String for Shopping");
 

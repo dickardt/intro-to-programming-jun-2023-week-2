@@ -5,19 +5,36 @@ import { map, mergeMap, switchMap, tap } from 'rxjs';
 import { ShoppingFeatureEvents } from './feature.actions';
 import { ShoppingListEntity } from './list.reducer';
 import { ListDocuments, ListEvents } from './list.actions';
+import { environment } from '../../../../../src/enviroments/enviroments.development';
 
 @Injectable()
 export class ListEffects {
+  baseUrl = environment.apiUrl;
+  markPurchased$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ListEvents.itemMarkedPurchased),
+      mergeMap((origionalAction) =>
+        this.http
+          .put(
+            this.baseUrl +
+              `completed-shopping-items/${origionalAction.payload.id}`,
+            origionalAction.payload,
+          )
+          .pipe(
+            map(() => ({ ...origionalAction, purchased: true })),
+            map(() => ListDocuments.item({ payload: origionalAction.payload })),
+          ),
+      ),
+    );
+  });
+
   // when an item is added -> send it to the api -> item
   addItem$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ListEvents.itemAdded),
       mergeMap(({ payload }) =>
         this.http
-          .post<ShoppingListEntity>(
-            'http://localhost:1338/shopping-list',
-            payload,
-          )
+          .post<ShoppingListEntity>(this.baseUrl + 'shopping-list', payload)
           .pipe(map((payload) => ListDocuments.item({ payload }))),
       ),
     );
@@ -29,9 +46,7 @@ export class ListEffects {
       ofType(ShoppingFeatureEvents.entered),
       switchMap(() =>
         this.http
-          .get<{ data: ShoppingListEntity[] }>(
-            'http://localhost:1338/shopping-list',
-          )
+          .get<{ data: ShoppingListEntity[] }>(this.baseUrl + 'shopping-list')
           .pipe(
             map((response) => response.data),
             map((payload) => ListDocuments.list({ payload })),

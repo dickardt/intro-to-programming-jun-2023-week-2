@@ -19,5 +19,5 @@ export const reducer = createReducer(
   initialState,
 
   on(ListDocuments.list, (s, a) => adapter.setAll(a.payload, s)),
-  on(ListDocuments.item, (s, a) => adapter.addOne(a.payload, s)),
+  on(ListDocuments.item, (s, a) => adapter.upsertOne(a.payload, s)),
 );

@@ -1,9 +1,10 @@
 <form
   [formGroup]="form"
-  (ngSubmit)="addItem()">
+  (ngSubmit)="addItem(focusMe)">
   <div class="form-group">
     <label for="description">Description of Item to Add</label>
     <input
+      #focusMe
       type="text"
       id="description"
       formControlName="description"

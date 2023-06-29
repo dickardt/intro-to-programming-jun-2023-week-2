@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -34,7 +34,7 @@ export class CreateComponent {
     return this.form.controls.description;
   }
 
-  addItem() {
+  addItem(elementYouWantToFocus: HTMLInputElement) {
     this.submitted.set(true);
     if (this.form.valid) {
       const payload = {
@@ -45,6 +45,9 @@ export class CreateComponent {
           payload: payload,
         }),
       );
+      this.form.reset();
+      this.submitted.set(false);
+      elementYouWantToFocus.focus();
     }
   }
 }

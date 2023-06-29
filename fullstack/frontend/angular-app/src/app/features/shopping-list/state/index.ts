@@ -2,7 +2,6 @@ import {
   ActionReducerMap,
   createFeatureSelector,
   createSelector,
-  select,
 } from '@ngrx/store';
 import * as fromList from './list.reducer';
 import { ShoppingListItemModel } from '../models';

@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CreateComponent } from './components/create/create.component';
 import { ListComponent } from './components/list/list.component';
-import { ShoppingListItemModel } from './models';
+
 import { Store } from '@ngrx/store';
 import { ShoppingFeatureEvents } from './state/feature.actions';
 

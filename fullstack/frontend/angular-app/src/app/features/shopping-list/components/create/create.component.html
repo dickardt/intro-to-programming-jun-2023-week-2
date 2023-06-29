@@ -10,7 +10,11 @@
       class="form-control" />
     <div
       class="alert alert-danger"
-      *ngIf="description.errors && (description.touched || description.dirty)">
+      *ngIf="
+        submitted() &&
+        description.errors &&
+        (description.touched || description.dirty)
+      ">
       <p *ngIf="description.hasError('required')">This is required</p>
       <p *ngIf="description.hasError('minlength')">This is too short</p>
       <p *ngIf="description.hasError('maxlength')">This is too long</p>

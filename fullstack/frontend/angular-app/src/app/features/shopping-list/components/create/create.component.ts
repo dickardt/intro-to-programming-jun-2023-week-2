@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -17,6 +17,7 @@ import { ListEvents } from '../../state/list.actions';
   styleUrls: ['./create.component.css'],
 })
 export class CreateComponent {
+  submitted = signal(false);
   constructor(private store: Store) {}
   form = new FormGroup({
     description: new FormControl<string>('', {
@@ -34,6 +35,7 @@ export class CreateComponent {
   }
 
   addItem() {
+    this.submitted.set(true);
     if (this.form.valid) {
       const payload = {
         description: this.form.controls.description.value,

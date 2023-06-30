@@ -3,7 +3,7 @@ WORKDIR /dist/src/app
 
 RUN npm install -g npm@9.7.2
 COPY package*.json ./
-RUN npm ci
+RUN npm ci 
 COPY . .
 RUN npm run build
 
